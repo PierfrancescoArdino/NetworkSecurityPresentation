@@ -4,7 +4,7 @@ Presentation for the NetSec course based on Buffer overflow exploit
 # Requisite
     
 ## disable memory randomization, enable core dumps
-    ```bash
+```bash
     cat /proc/sys/kernel/randomize_va_space
     sudo bash -c 'echo "kernel.randomize_va_space = 0" >> /etc/sysctl.conf'
     sudo sysctl -p
