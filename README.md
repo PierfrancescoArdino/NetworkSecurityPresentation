@@ -27,7 +27,7 @@ This test exercise is used to explain how memory works and how data is managed i
 ## Execution
 ```bash
     cd /path/to/repo/src
-    ./exercise_test
+    gdb exercise_test
 ```
 # First Exercise
 
