@@ -14,7 +14,21 @@ Presentation for the NetSec course based on Buffer overflow exploit
     ulimit -c
     # verify "unlimited"
 ```
+#Test Exercise
 
+This test exercise is used to explain how memory works and how data is managed into the stack.
+
+##Compilation
+```bash
+    cd /path/to/repo/src
+    gcc -O0 -m32 -z execstack -fno-stack-protector -mpreferred-stack-boundary=2 -g exercise_test.c -o exercise_test
+```
+
+## Execution
+```bash
+    cd /path/to/repo/src
+    ./exercise_test
+```
 # First Exercise
 
 The first exercise consists in overwrite a variable used to grant permission to a user using the `strcpy()` vulnerable function
