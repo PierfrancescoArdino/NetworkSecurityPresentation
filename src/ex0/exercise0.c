@@ -1,9 +1,7 @@
 #include <stdio.h>
 void test(int a , int b , int c ) {
     char buffer1[4] = { 'A' , 'B' , 'C' , 'D' } ;
-    int t = a;
-    int f = b;
-    int x = c;
+    int buffer2[3] = {a, b, c};
 }
 
 int main (int argc, char **argv) {

