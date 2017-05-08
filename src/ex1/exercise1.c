@@ -2,14 +2,11 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
-main (int argc, char **argv)
+int main (int argc, char **argv)
 {
-   // char test[5] = {'N', 'e', 't', 's', '\0'};
     int pass=0;
     char buff[8];
     strcpy(buff,argv[1]);
-    printf("%s\n",buff);
-    printf("%d\n",pass);
     if(strcmp("password",buff)==0)
     {
         printf("the password is correct!\n");
@@ -18,6 +15,8 @@ main (int argc, char **argv)
     else{
         printf("Wrong password\n");
     }
+    printf("buff: %s\n",buff);
+    printf("pass: %d\n",pass);
     if(pass)
     {
         printf("permission granted\n");
@@ -26,5 +25,5 @@ main (int argc, char **argv)
     {
         printf("permission denied\n");
     }
-    exit(0);
+    return 0;
 }
